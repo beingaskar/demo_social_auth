@@ -18,7 +18,7 @@ social-auth-app-django==3.1.0
 3. Supports [Long living access token](https://developers.facebook.com/docs/facebook-login/access-tokens/refreshing/) - validity of 60 days.
 
 ## Setup:
-Below variables are to be updated in `settings.py`
+1. Below variables are to be updated in `settings.py`
 
 SOCIAL_AUTH_FACEBOOK_KEY : Facebook App ID
 
@@ -34,6 +34,9 @@ DB_HOST : Postgres Database Host
 
 DB_PORT : Postgres Database Port
 
+2. Run `python manage.py migrate`
+
+3. Run `python manage.py runserver`
 
 ## Notes:
 For testing, use the same domain name as configured in the Facebook app.
