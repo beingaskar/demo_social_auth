@@ -64,6 +64,8 @@ TEMPLATES = [
                 'django.template.context_processors.request',
                 'django.contrib.auth.context_processors.auth',
                 'django.contrib.messages.context_processors.messages',
+                'social_django.context_processors.backends',
+                'social_django.context_processors.login_redirect',
             ],
         },
     },
@@ -104,8 +106,37 @@ DATABASES = {
     }
 }
 
+# Authentication Backends (Facebook + Default)
+AUTHENTICATION_BACKENDS = [
+    'social_core.backends.facebook.FacebookOAuth2',
+    'django.contrib.auth.backends.ModelBackend',
+]
+
+# Social Auth - Various URL's
+LOGIN_URL = 'login'
+LOGIN_REDIRECT_URL = 'home'
+LOGOUT_URL = 'logout'
+LOGOUT_REDIRECT_URL = 'login'
+
+# Facebook Configuration
+SOCIAL_AUTH_FACEBOOK_KEY = os.environ.get('SOCIAL_AUTH_FACEBOOK_KEY', '461022571373625')
+SOCIAL_AUTH_FACEBOOK_SECRET = os.environ.get('SOCIAL_AUTH_FACEBOOK_SECRET', '5a05ed10c5971472f93e3d1373a1b0d5')
+SOCIAL_AUTH_FACEBOOK_APP_NAMESPACE = ''
+SOCIAL_AUTH_FACEBOOK_SCOPE = ['email']
+SOCIAL_AUTH_FACEBOOK_PROFILE_EXTRA_PARAMS = {
+    'fields': 'id, name, picture.type(large)'
+}
+SOCIAL_AUTH_FACEBOOK_EXTRA_DATA = [
+    ('name', 'name'),
+    ('picture', 'picture'),
+]
+
+# With Postgres, It is recommended to use the built-in JSONB field to store the extracted `extra_data`.
+SOCIAL_AUTH_POSTGRES_JSONFIELD = True
+
 # Load any system level config from defined in `local_settings.py`
 try:
     from .local_settings import *
 except ImportError:
     pass
+

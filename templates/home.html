@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Home - {{ user.username }}</title>
+</head>
+<body>
+<a href="/logout">Logout</a><br>
+
+{% for backend in backends.associated %}
+    {% if backend.provider == 'facebook' %}
+        <br>
+        Name: {{ user.username }}
+        <br><br>
+        Profile Picture : <br>
+        <img src="{{ backend.extra_data.picture.data.url }}" alt="Profile Picture" height="200" width="200">
+    {% endif %}
+{% endfor %}
+
+</body>
+</html>
